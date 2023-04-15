@@ -54,8 +54,16 @@ export default class App extends React.Component {
         await context.sync();
         rangeB1.values = rangeA1.values;
 
-        rangeB1.load("values");
-        console.log(`value of cell B1 is ${rangeB1.values}`);
+        let rng = sheet.getUsedRange();
+        let lastCell = rng.getLastCell();
+        lastCell.load("address");
+        await context.sync();
+
+        console.log(lastCell.address);
+
+        // const rangeLast = sheet.getRange("A1").getSpecialCells("LastCell");
+        // console.log(rangeLast.address);
+        // rangeLast.values = 2000;
 
         // Update the fill color
         range.format.fill.color = "yellow";
